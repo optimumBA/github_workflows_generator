@@ -7,7 +7,29 @@ defmodule GithubWorkflowsGenerator.MixProject do
       version: "0.1.0",
       elixir: "~> 1.16",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      aliases: aliases(),
+      deps: deps(),
+      preferred_cli_env: [
+        ci: :test,
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.html": :test,
+        credo: :test,
+        dialyzer: :test,
+        sobelow: :test
+      ],
+      test_coverage: [tool: ExCoveralls],
+      dialyzer: [
+        plt_add_apps: [:ex_unit, :mix],
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
+      ],
+      # Docs
+      name: "GithubWorkflowsGenerator",
+      source_url: "https://github.com/optimumBA/github_workflows_generator",
+      docs: [
+        main: "Mix.Tasks.GithubWorkflows.Generate",
+        source_ref: "main"
+      ]
     ]
   end
 
@@ -21,8 +43,29 @@ defmodule GithubWorkflowsGenerator.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+      {:credo, "~> 1.7", only: [:test], runtime: false},
+      {:dialyxir, "~> 1.4", only: [:test], runtime: false},
+      {:fast_yaml, "~> 1.0"},
+      {:ex_doc, "~> 0.31", only: [:dev], runtime: false},
+      {:excoveralls, "~> 0.18", only: [:test], runtime: false},
+      {:mix_audit, "~> 1.0", only: [:test], runtime: false}
+    ]
+  end
+
+  defp aliases do
+    [
+      ci: [
+        "deps.unlock --check-unused",
+        "deps.audit",
+        "hex.audit",
+        "format --check-formatted",
+        "cmd npx prettier -c .",
+        "compile --force --warnings-as-errors",
+        "credo --strict",
+        "dialyzer",
+        "coveralls"
+      ],
+      prettier: ["cmd npx prettier -w ."]
     ]
   end
 end

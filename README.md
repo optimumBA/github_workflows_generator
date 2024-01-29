@@ -1,21 +1,33 @@
-# GithubWorkflowsGenerator
-
-**TODO: Add description**
+# mix github_workflows.generate
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `github_workflows_generator` to your list of dependencies in `mix.exs`:
+To install from Hex, run:
 
-```elixir
-def deps do
-  [
-    {:github_workflows_generator, "~> 0.1.0"}
-  ]
-end
+```bash
+mix archive.install hex github_workflows_generator
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/github_workflows_generator>.
+To build and install it locally, ensure any previous archive versions are removed:
 
+```bash
+mix archive.uninstall github_workflows.generate
+```
+
+Then run:
+
+```bash
+MIX_ENV=prod mix do archive.build, archive.install
+```
+
+## Usage
+
+```bash
+mix github_workflows.generate
+```
+
+To see available options, run:
+
+```bash
+mix help github_workflows.generate
+```
