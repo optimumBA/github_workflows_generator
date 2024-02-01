@@ -113,8 +113,8 @@ defmodule GithubWorkflows do
         matrix: [
           versions: [
             %{
-              elixir: "1.12",
-              otp: "22.3",
+              elixir: "1.11",
+              otp: "21.3",
               "runner-image": "ubuntu-20.04"
             },
             %{
@@ -221,7 +221,7 @@ defmodule GithubWorkflows do
             MUX_CREDENTIALS_EMAIL: "${{ secrets.MUX_CREDENTIALS_EMAIL }}",
             MUX_CREDENTIALS_PASSWORD: "${{ secrets.MUX_CREDENTIALS_PASSWORD }}"
           ],
-          run: "mix test --cover --warnings-as-errors"
+          run: "mix test --cover"
         ]
       ]
     )

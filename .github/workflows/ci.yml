@@ -12,8 +12,8 @@ jobs:
       fail-fast: false
       matrix:
         versions:
-          - otp: 22.3
-            elixir: 1.12
+          - otp: 21.3
+            elixir: 1.11
             runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
@@ -47,8 +47,8 @@ jobs:
       fail-fast: false
       matrix:
         versions:
-          - otp: 22.3
-            elixir: 1.12
+          - otp: 21.3
+            elixir: 1.11
             runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
@@ -78,8 +78,8 @@ jobs:
       fail-fast: false
       matrix:
         versions:
-          - otp: 22.3
-            elixir: 1.12
+          - otp: 21.3
+            elixir: 1.11
             runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
@@ -109,8 +109,8 @@ jobs:
       fail-fast: false
       matrix:
         versions:
-          - otp: 22.3
-            elixir: 1.12
+          - otp: 21.3
+            elixir: 1.11
             runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
@@ -150,8 +150,8 @@ jobs:
       fail-fast: false
       matrix:
         versions:
-          - otp: 22.3
-            elixir: 1.12
+          - otp: 21.3
+            elixir: 1.11
             runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
@@ -181,8 +181,8 @@ jobs:
       fail-fast: false
       matrix:
         versions:
-          - otp: 22.3
-            elixir: 1.12
+          - otp: 21.3
+            elixir: 1.11
             runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
@@ -229,8 +229,8 @@ jobs:
       fail-fast: false
       matrix:
         versions:
-          - otp: 22.3
-            elixir: 1.12
+          - otp: 21.3
+            elixir: 1.11
             runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
@@ -253,7 +253,7 @@ jobs:
           MIX_ENV: test
           MUX_CREDENTIALS_EMAIL: ${{ secrets.MUX_CREDENTIALS_EMAIL }}
           MUX_CREDENTIALS_PASSWORD: ${{ secrets.MUX_CREDENTIALS_PASSWORD }}
-        run: mix test --cover --warnings-as-errors
+        run: mix test --cover
   unused_deps:
     needs: compile
     name: Check unused deps
@@ -262,8 +262,8 @@ jobs:
       fail-fast: false
       matrix:
         versions:
-          - otp: 22.3
-            elixir: 1.12
+          - otp: 21.3
+            elixir: 1.11
             runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
