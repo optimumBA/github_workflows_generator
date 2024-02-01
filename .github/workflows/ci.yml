@@ -29,8 +29,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-${{ matrix.versions.runner-image }}-
       - name: Install Elixir dependencies
         env:
           MIX_ENV: test
@@ -64,8 +64,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-${{ matrix.versions.runner-image }}-
       - name: Check code style
         env:
           MIX_ENV: test
@@ -95,8 +95,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-${{ matrix.versions.runner-image }}-
       - name: Check for vulnerable Mix dependencies
         env:
           MIX_ENV: test
@@ -126,14 +126,14 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-${{ matrix.versions.runner-image }}-
       - name: Restore PLT cache
         uses: actions/cache@v3
         with:
           path: priv/plts
-          key: plt-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: plt-
+          key: plt-${{ matrix.versions.runner-image }}-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: plt-${{ matrix.versions.runner-image }}-
       - name: Create PLTs
         env:
           MIX_ENV: test
@@ -167,8 +167,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-${{ matrix.versions.runner-image }}-
       - name: Check Elixir formatting
         env:
           MIX_ENV: test
@@ -198,8 +198,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-${{ matrix.versions.runner-image }}-
       - name: Check for retired Hex packages
         env:
           MIX_ENV: test
@@ -246,8 +246,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-${{ matrix.versions.runner-image }}-
       - name: Run tests
         env:
           MIX_ENV: test
@@ -279,8 +279,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-${{ matrix.versions.runner-image }}-
       - name: Check for unused Mix dependencies
         env:
           MIX_ENV: test

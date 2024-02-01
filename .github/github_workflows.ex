@@ -85,7 +85,7 @@ defmodule GithubWorkflows do
           with:
             [
               path: "priv/plts"
-            ] ++ cache_opts(prefix: "plt")
+            ] ++ cache_opts(prefix: "plt-${{ matrix.versions.runner-image }}")
         ],
         [
           name: "Create PLTs",
@@ -144,7 +144,7 @@ defmodule GithubWorkflows do
                 _build
                 deps
                 """
-              ] ++ cache_opts(prefix: "mix")
+              ] ++ cache_opts(prefix: "mix-${{ matrix.versions.runner-image }}")
           ]
         ] ++ steps
     ]
