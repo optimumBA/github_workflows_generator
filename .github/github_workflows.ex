@@ -251,8 +251,7 @@ defmodule GithubWorkflows do
     prefix = Keyword.get(opts, :prefix)
 
     [
-      key:
-        "#{prefix}-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}",
+      key: "#{prefix}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}",
       "restore-keys": ~s"""
       #{prefix}-
       """
