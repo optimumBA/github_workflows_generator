@@ -135,7 +135,9 @@ defmodule Mix.Tasks.GithubWorkflows.GenerateTest do
   end
 
   defp create_workflows_file(path) do
-    File.mkdir_p!(Path.dirname(path))
+    path
+    |> Path.dirname()
+    |> File.mkdir_p!()
 
     File.write!(path, """
     defmodule GithubWorkflows do

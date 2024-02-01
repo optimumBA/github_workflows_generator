@@ -15,8 +15,7 @@ defmodule GithubWorkflowsGenerator.MixProject do
         "coveralls.detail": :test,
         "coveralls.html": :test,
         credo: :test,
-        dialyzer: :test,
-        sobelow: :test
+        dialyzer: :test
       ],
       test_coverage: [tool: ExCoveralls],
       dialyzer: [
