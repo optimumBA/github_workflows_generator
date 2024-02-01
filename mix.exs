@@ -5,7 +5,7 @@ defmodule GithubWorkflowsGenerator.MixProject do
     [
       app: :github_workflows_generator,
       version: "0.1.0",
-      elixir: "~> 1.16",
+      elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
@@ -69,3 +69,7 @@ defmodule GithubWorkflowsGenerator.MixProject do
     ]
   end
 end
+
+# push to github and add URL to hexdocs in the GitHub info
+# publish to hex.pm and hexdocs
+#
