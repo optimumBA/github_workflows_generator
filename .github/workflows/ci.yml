@@ -206,7 +206,7 @@ jobs:
         run: mix hex.audit
   prettier:
     name: Check formatting using Prettier
-    runs-on: ${{ matrix.versions.runner-image }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -215,7 +215,7 @@ jobs:
         id: npm-cache
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-npm
+          key: npm-ubuntu-latest
       - name: Install Prettier
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm i -g prettier

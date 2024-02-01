@@ -185,7 +185,7 @@ defmodule GithubWorkflows do
   defp prettier_job do
     [
       name: "Check formatting using Prettier",
-      "runs-on": "${{ matrix.versions.runner-image }}",
+      "runs-on": "ubuntu-latest",
       steps: [
         checkout_step(),
         [
@@ -194,7 +194,7 @@ defmodule GithubWorkflows do
           id: "npm-cache",
           with: [
             path: "~/.npm",
-            key: "${{ runner.os }}-npm"
+            key: "npm-ubuntu-latest"
           ]
         ],
         [
