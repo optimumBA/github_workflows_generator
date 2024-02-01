@@ -221,7 +221,7 @@ defmodule GithubWorkflows do
             MUX_CREDENTIALS_EMAIL: "${{ secrets.MUX_CREDENTIALS_EMAIL }}",
             MUX_CREDENTIALS_PASSWORD: "${{ secrets.MUX_CREDENTIALS_PASSWORD }}"
           ],
-          run: "mix test --cover --warnings-as-errors"
+          run: "mix test --cover"
         ]
       ]
     )

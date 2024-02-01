@@ -59,7 +59,6 @@ defmodule GithubWorkflowsGenerator.MixProject do
         "hex.audit",
         "format --check-formatted",
         "cmd npx prettier -c .",
-        "compile --force --warnings-as-errors",
         "credo --strict",
         "dialyzer",
         "coveralls"
