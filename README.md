@@ -2,22 +2,14 @@
 
 ## Installation
 
-To install from Hex, run:
+Add `github_workflows_generator` to your list of dependencies in `mix.exs`:
 
-```bash
-mix archive.install hex github_workflows_generator
-```
-
-To build and install it locally, ensure any previous archive versions are removed:
-
-```bash
-mix archive.uninstall github_workflows.generate
-```
-
-Then run:
-
-```bash
-MIX_ENV=prod mix do archive.build, archive.install
+```elixir
+def deps do
+  [
+    {:github_workflows_generator, "~> 0.1"}
+  ]
+end
 ```
 
 ## Usage
