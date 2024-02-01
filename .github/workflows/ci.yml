@@ -7,7 +7,7 @@ on:
 jobs:
   compile:
     name: Install deps and compile
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         versions:
@@ -39,7 +39,7 @@ jobs:
   credo:
     needs: compile
     name: Credo
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         versions:
@@ -67,7 +67,7 @@ jobs:
   deps_audit:
     needs: compile
     name: Deps audit
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         versions:
@@ -95,7 +95,7 @@ jobs:
   dialyzer:
     needs: compile
     name: Dialyzer
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         versions:
@@ -133,7 +133,7 @@ jobs:
   format:
     needs: compile
     name: Format
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         versions:
@@ -161,7 +161,7 @@ jobs:
   hex_audit:
     needs: compile
     name: Hex audit
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         versions:
@@ -188,7 +188,7 @@ jobs:
         run: mix hex.audit
   prettier:
     name: Check formatting using Prettier
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -206,7 +206,7 @@ jobs:
   test:
     needs: compile
     name: Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         versions:
@@ -236,7 +236,7 @@ jobs:
   unused_deps:
     needs: compile
     name: Check unused deps
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         versions:

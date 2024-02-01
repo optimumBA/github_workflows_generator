@@ -1,6 +1,8 @@
 defmodule GithubWorkflows do
   @moduledoc false
 
+  @runner_image "ubuntu-20.04"
+
   def get do
     %{
       "ci.yml" => ci_workflow()
@@ -111,7 +113,7 @@ defmodule GithubWorkflows do
 
     job = [
       name: name,
-      "runs-on": "ubuntu-latest",
+      "runs-on": @runner_image,
       strategy: [
         matrix: [
           versions: [
@@ -186,7 +188,7 @@ defmodule GithubWorkflows do
   defp prettier_job do
     [
       name: "Check formatting using Prettier",
-      "runs-on": "ubuntu-latest",
+      "runs-on": @runner_image,
       steps: [
         checkout_step(),
         [
