@@ -5,7 +5,7 @@ defmodule GithubWorkflowsGenerator.MixProject do
     [
       app: :github_workflows_generator,
       version: "0.1.0",
-      elixir: "~> 1.11",
+      elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
@@ -59,6 +59,7 @@ defmodule GithubWorkflowsGenerator.MixProject do
         "hex.audit",
         "format --check-formatted",
         "cmd npx prettier -c .",
+        "compile --force --warnings-as-errors",
         "credo --strict",
         "dialyzer",
         "coveralls"
