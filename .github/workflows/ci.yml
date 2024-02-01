@@ -9,6 +9,7 @@ jobs:
     name: Install deps and compile
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         versions:
           - otp: 21.3
@@ -41,6 +42,7 @@ jobs:
     name: Credo
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         versions:
           - otp: 21.3
@@ -69,6 +71,7 @@ jobs:
     name: Deps audit
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         versions:
           - otp: 21.3
@@ -97,6 +100,7 @@ jobs:
     name: Dialyzer
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         versions:
           - otp: 21.3
@@ -135,6 +139,7 @@ jobs:
     name: Format
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         versions:
           - otp: 21.3
@@ -163,6 +168,7 @@ jobs:
     name: Hex audit
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         versions:
           - otp: 21.3
@@ -208,6 +214,7 @@ jobs:
     name: Test
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         versions:
           - otp: 21.3
@@ -238,6 +245,7 @@ jobs:
     name: Check unused deps
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         versions:
           - otp: 21.3

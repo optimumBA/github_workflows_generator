@@ -115,6 +115,7 @@ defmodule GithubWorkflows do
       name: name,
       "runs-on": @runner_image,
       strategy: [
+        "fail-fast": false,
         matrix: [
           versions: [
             %{
