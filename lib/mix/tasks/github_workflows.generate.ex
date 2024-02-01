@@ -136,7 +136,7 @@ defmodule Mix.Tasks.GithubWorkflows.Generate do
   ```
 
   More complex workflows can be found here:
-  https://github.com/optimumBA/phx.tools/blob/main/.github/github_workflows.ex
+  https://github.com/optimumBA/github_workflows_generator/blob/main/.github/github_workflows.ex
 
   """
 
