@@ -1,6 +1,9 @@
 defmodule GithubWorkflowsGenerator.MixProject do
   use Mix.Project
 
+  @repo "https://github.com/optimumBA/github_workflows_generator"
+  @version "0.1.0"
+
   def project do
     [
       app: :github_workflows_generator,
@@ -9,6 +12,8 @@ defmodule GithubWorkflowsGenerator.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
+
+      # Code checks
       preferred_cli_env: [
         ci: :test,
         coveralls: :test,
@@ -22,13 +27,15 @@ defmodule GithubWorkflowsGenerator.MixProject do
         plt_add_apps: [:ex_unit, :mix],
         plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
       ],
+
       # Docs
       name: "GithubWorkflowsGenerator",
-      source_url: "https://github.com/optimumBA/github_workflows_generator",
-      docs: [
-        main: "Mix.Tasks.GithubWorkflows.Generate",
-        source_ref: "main"
-      ]
+      source_url: @repo,
+      docs: docs(),
+
+      # Hex package
+      description: "Generate GitHub Actions workflows",
+      package: package()
     ]
   end
 
@@ -36,6 +43,21 @@ defmodule GithubWorkflowsGenerator.MixProject do
   def application do
     [
       extra_applications: [:logger]
+    ]
+  end
+
+  defp docs do
+    [
+      main: "Mix.Tasks.GithubWorkflows.Generate",
+      source_ref: "v#{@version}"
+    ]
+  end
+
+  defp package do
+    [
+      licenses: ["MIT"],
+      links: %{"GitHub" => @repo},
+      maintainers: ["Almir Sarajčić"]
     ]
   end
 
