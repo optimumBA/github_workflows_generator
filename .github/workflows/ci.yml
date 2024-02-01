@@ -7,15 +7,17 @@ on:
 jobs:
   compile:
     name: Install deps and compile
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.versions.runner-image }}
     strategy:
       fail-fast: false
       matrix:
         versions:
           - otp: 21.3
             elixir: 1.11
+            runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
+            runner-image: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,8 +29,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ runner.os }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-${{ runner.os }}-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-
       - name: Install Elixir dependencies
         env:
           MIX_ENV: test
@@ -40,15 +42,17 @@ jobs:
   credo:
     needs: compile
     name: Credo
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.versions.runner-image }}
     strategy:
       fail-fast: false
       matrix:
         versions:
           - otp: 21.3
             elixir: 1.11
+            runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
+            runner-image: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -60,8 +64,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ runner.os }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-${{ runner.os }}-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-
       - name: Check code style
         env:
           MIX_ENV: test
@@ -69,15 +73,17 @@ jobs:
   deps_audit:
     needs: compile
     name: Deps audit
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.versions.runner-image }}
     strategy:
       fail-fast: false
       matrix:
         versions:
           - otp: 21.3
             elixir: 1.11
+            runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
+            runner-image: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -89,8 +95,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ runner.os }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-${{ runner.os }}-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-
       - name: Check for vulnerable Mix dependencies
         env:
           MIX_ENV: test
@@ -98,15 +104,17 @@ jobs:
   dialyzer:
     needs: compile
     name: Dialyzer
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.versions.runner-image }}
     strategy:
       fail-fast: false
       matrix:
         versions:
           - otp: 21.3
             elixir: 1.11
+            runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
+            runner-image: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -118,14 +126,14 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ runner.os }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-${{ runner.os }}-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-
       - name: Restore PLT cache
         uses: actions/cache@v3
         with:
           path: priv/plts
-          key: plt-${{ runner.os }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: plt-${{ runner.os }}-
+          key: plt-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: plt-
       - name: Create PLTs
         env:
           MIX_ENV: test
@@ -137,15 +145,17 @@ jobs:
   format:
     needs: compile
     name: Format
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.versions.runner-image }}
     strategy:
       fail-fast: false
       matrix:
         versions:
           - otp: 21.3
             elixir: 1.11
+            runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
+            runner-image: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -157,8 +167,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ runner.os }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-${{ runner.os }}-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-
       - name: Check Elixir formatting
         env:
           MIX_ENV: test
@@ -166,15 +176,17 @@ jobs:
   hex_audit:
     needs: compile
     name: Hex audit
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.versions.runner-image }}
     strategy:
       fail-fast: false
       matrix:
         versions:
           - otp: 21.3
             elixir: 1.11
+            runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
+            runner-image: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -186,15 +198,15 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ runner.os }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-${{ runner.os }}-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-
       - name: Check for retired Hex packages
         env:
           MIX_ENV: test
         run: mix hex.audit
   prettier:
     name: Check formatting using Prettier
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.versions.runner-image }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -212,15 +224,17 @@ jobs:
   test:
     needs: compile
     name: Test
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.versions.runner-image }}
     strategy:
       fail-fast: false
       matrix:
         versions:
           - otp: 21.3
             elixir: 1.11
+            runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
+            runner-image: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -232,8 +246,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ runner.os }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-${{ runner.os }}-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-
       - name: Run tests
         env:
           MIX_ENV: test
@@ -243,15 +257,17 @@ jobs:
   unused_deps:
     needs: compile
     name: Check unused deps
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.versions.runner-image }}
     strategy:
       fail-fast: false
       matrix:
         versions:
           - otp: 21.3
             elixir: 1.11
+            runner-image: ubuntu-20.04
           - otp: 26.2
             elixir: 1.16
+            runner-image: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -263,8 +279,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "_build\ndeps"
-          key: mix-${{ runner.os }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
-          restore-keys: mix-${{ runner.os }}-
+          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
+          restore-keys: mix-
       - name: Check for unused Mix dependencies
         env:
           MIX_ENV: test

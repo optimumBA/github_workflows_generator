@@ -1,8 +1,6 @@
 defmodule GithubWorkflows do
   @moduledoc false
 
-  @runner_image "ubuntu-20.04"
-
   def get do
     %{
       "ci.yml" => ci_workflow()
@@ -78,8 +76,6 @@ defmodule GithubWorkflows do
   end
 
   defp dialyzer_job do
-    cache_key_prefix = "plt-${{ runner.os }}"
-
     elixir_job("Dialyzer",
       needs: :compile,
       steps: [
@@ -89,7 +85,7 @@ defmodule GithubWorkflows do
           with:
             [
               path: "priv/plts"
-            ] ++ cache_opts(cache_key_prefix)
+            ] ++ cache_opts(prefix: "plt")
         ],
         [
           name: "Create PLTs",
@@ -109,22 +105,22 @@ defmodule GithubWorkflows do
     needs = Keyword.get(opts, :needs)
     steps = Keyword.get(opts, :steps, [])
 
-    cache_key_prefix = "mix-${{ runner.os }}"
-
     job = [
       name: name,
-      "runs-on": @runner_image,
+      "runs-on": "${{ matrix.versions.runner-image }}",
       strategy: [
         "fail-fast": false,
         matrix: [
           versions: [
             %{
               elixir: "1.11",
-              otp: "21.3"
+              otp: "21.3",
+              "runner-image": "ubuntu-20.04"
             },
             %{
               elixir: "1.16",
-              otp: "26.2"
+              otp: "26.2",
+              "runner-image": "ubuntu-latest"
             }
           ]
         ]
@@ -148,7 +144,7 @@ defmodule GithubWorkflows do
                 _build
                 deps
                 """
-              ] ++ cache_opts(cache_key_prefix)
+              ] ++ cache_opts(prefix: "mix")
           ]
         ] ++ steps
     ]
@@ -189,7 +185,7 @@ defmodule GithubWorkflows do
   defp prettier_job do
     [
       name: "Check formatting using Prettier",
-      "runs-on": @runner_image,
+      "runs-on": "${{ matrix.versions.runner-image }}",
       steps: [
         checkout_step(),
         [
@@ -251,9 +247,12 @@ defmodule GithubWorkflows do
     ]
   end
 
-  defp cache_opts(prefix) do
+  defp cache_opts(opts) do
+    prefix = Keyword.get(opts, :prefix)
+
     [
-      key: "#{prefix}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}",
+      key:
+        "#{prefix}-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}",
       "restore-keys": ~s"""
       #{prefix}-
       """
