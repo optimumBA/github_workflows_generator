@@ -89,7 +89,3 @@ defmodule GithubWorkflowsGenerator.MixProject do
     ]
   end
 end
-
-# push to github and add URL to hexdocs in the GitHub info
-# publish to hex.pm and hexdocs
-#
