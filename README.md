@@ -10,7 +10,7 @@ Add `github_workflows_generator` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:github_workflows_generator, "~> 0.1"}
+    {:github_workflows_generator, "~> 0.1", only: :dev, runtime: false}
   ]
 end
 ```
