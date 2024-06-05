@@ -2,12 +2,12 @@ defmodule GithubWorkflowsGenerator.MixProject do
   use Mix.Project
 
   @repo "https://github.com/optimumBA/github_workflows_generator"
-  @version "0.1.0"
+  @version "0.1.1"
 
   def project do
     [
       app: :github_workflows_generator,
-      version: "0.1.0",
+      version: @version,
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -67,7 +67,7 @@ defmodule GithubWorkflowsGenerator.MixProject do
       {:credo, "~> 1.7", only: [:test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:test], runtime: false},
       {:fast_yaml, "~> 1.0"},
-      {:ex_doc, "~> 0.31", only: [:dev], runtime: false},
+      {:ex_doc, "~> 0.34", only: [:dev], runtime: false},
       {:excoveralls, "~> 0.18", only: [:test], runtime: false},
       {:mix_audit, "~> 1.0", only: [:test], runtime: false}
     ]
