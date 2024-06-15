@@ -9,7 +9,12 @@ defmodule GithubWorkflowsGenerator do
          {:ok, workflows} <- get_workflows(source_path) do
       for {filename, data} <- workflows do
         path = Path.join(dir_path, filename)
-        yml = YmlEncoder.encode(data)
+
+        yml =
+          data
+          |> List.first()
+          |> YmlEncoder.encode()
+
         File.write!(path, yml)
       end
 
@@ -41,7 +46,7 @@ defmodule GithubWorkflowsGenerator do
       %{} ->
         {:error, "File #{source_path} does not contain any workflows."}
 
-      _ ->
+      _other ->
         {:error, "File #{source_path} does not have a valid structure."}
     end
   end
