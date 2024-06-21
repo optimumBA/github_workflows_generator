@@ -68,7 +68,7 @@ defmodule GithubWorkflowsGenerator.MixProject do
       {:dialyxir, "~> 1.4", only: [:test], runtime: false},
       {:ex_doc, "~> 0.34", only: [:dev], runtime: false},
       {:excoveralls, "~> 0.18", only: [:test], runtime: false},
-      {:mix_audit, "~> 1.0", only: [:test], runtime: false}
+      {:mix_audit, "~> 2.1", only: [:test], runtime: false}
     ]
   end
 
