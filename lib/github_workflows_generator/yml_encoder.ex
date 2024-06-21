@@ -4,18 +4,68 @@ defmodule GithubWorkflowsGenerator.YmlEncoder do
   @spec encode(term()) :: String.t()
   def encode(data) do
     data
-    |> Enum.at(0)
-    |> :fast_yaml.encode()
-    |> to_string()
-    # Trim trailing space
-    |> String.replace("\s\n", "\n")
-    # Avoid putting list element in new line after -
-    |> String.replace(~r/-\n\s+/, "-\s")
-    # Trim trailing newline inside strings
-    |> String.replace(~S(\n"), ~S("))
-    # Unquote strings
-    |> String.replace(~r<"([a-z0-9@_\-\.,: \{\}\$/\*\(\)'!=&\<\>~]+)">i, "\\1")
-    # Add newline to the EOF
+    |> to_yml()
+    |> String.trim()
     |> Kernel.<>("\n")
+  end
+
+  defp to_yml(data, level \\ 0, indent? \\ false)
+
+  defp to_yml(data, level, indent?) when is_list(data) do
+    if Keyword.keyword?(data) do
+      handle_keyword_list(data, level, indent?)
+    else
+      Enum.map_join(
+        data,
+        "\n",
+        &(String.duplicate("  ", level) <> "- " <> to_yml(&1, level + 1, false))
+      )
+    end
+  end
+
+  defp to_yml(data, level, _indent?) do
+    cond do
+      !is_binary(data) ->
+        to_string(data)
+
+      String.contains?(data, "\n") ->
+        values =
+          data
+          |> String.split("\n", trim: true)
+          |> Enum.map_join("\n", &(String.duplicate("  ", level) <> &1))
+
+        "|\n#{values}"
+
+      true ->
+        data
+    end
+  end
+
+  defp handle_keyword_list(data, level, indent?) do
+    data
+    |> Enum.map_reduce(indent?, fn {key, value}, indent? ->
+      indentation =
+        if indent? do
+          String.duplicate("  ", level)
+        else
+          ""
+        end
+
+      {delimiter, string_value} =
+        case value do
+          [] ->
+            {"", ""}
+
+          value when is_list(value) ->
+            {"\n", to_yml(value, level + 1, true)}
+
+          value ->
+            {" ", to_yml(value, level + 1, false)}
+        end
+
+      {"#{indentation}#{key}:#{delimiter}#{string_value}", true}
+    end)
+    |> elem(0)
+    |> Enum.join(if(level == 0, do: "\n\n", else: "\n"))
   end
 end

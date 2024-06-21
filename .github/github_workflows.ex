@@ -112,16 +112,16 @@ defmodule GithubWorkflows do
         "fail-fast": false,
         matrix: [
           versions: [
-            %{
+            [
               elixir: "1.11",
               otp: "21.3",
               "runner-image": "ubuntu-20.04"
-            },
-            %{
+            ],
+            [
               elixir: "1.16",
               otp: "26.2",
               "runner-image": "ubuntu-latest"
-            }
+            ]
           ]
         ]
       ],

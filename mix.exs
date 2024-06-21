@@ -66,7 +66,6 @@ defmodule GithubWorkflowsGenerator.MixProject do
     [
       {:credo, "~> 1.7", only: [:test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:test], runtime: false},
-      {:fast_yaml, "~> 1.0"},
       {:ex_doc, "~> 0.34", only: [:dev], runtime: false},
       {:excoveralls, "~> 0.18", only: [:test], runtime: false},
       {:mix_audit, "~> 1.0", only: [:test], runtime: false}
