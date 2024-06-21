@@ -156,7 +156,7 @@ jobs:
       - name: Run dialyzer
         env:
           MIX_ENV: test
-        run: mix dialyzer --format short 2>&1
+        run: mix dialyzer
   format:
     needs: compile
     name: Format
@@ -275,9 +275,7 @@ jobs:
       - name: Run tests
         env:
           MIX_ENV: test
-          MUX_CREDENTIALS_EMAIL: ${{ secrets.MUX_CREDENTIALS_EMAIL }}
-          MUX_CREDENTIALS_PASSWORD: ${{ secrets.MUX_CREDENTIALS_PASSWORD }}
-        run: mix test --cover
+        run: mix test --cover --warnings-as-errors
   unused_deps:
     needs: compile
     name: Check unused deps

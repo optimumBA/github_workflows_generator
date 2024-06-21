@@ -1,5 +1,8 @@
 defmodule GithubWorkflows do
-  @moduledoc false
+  @moduledoc """
+  Run `mix github_workflows.generate` after updating this module.
+  See https://hexdocs.pm/github_workflows_generator.
+  """
 
   def get do
     %{
@@ -95,7 +98,7 @@ defmodule GithubWorkflows do
         [
           name: "Run dialyzer",
           env: [MIX_ENV: "test"],
-          run: "mix dialyzer --format short 2>&1"
+          run: "mix dialyzer"
         ]
       ]
     )
@@ -217,11 +220,9 @@ defmodule GithubWorkflows do
         [
           name: "Run tests",
           env: [
-            MIX_ENV: "test",
-            MUX_CREDENTIALS_EMAIL: "${{ secrets.MUX_CREDENTIALS_EMAIL }}",
-            MUX_CREDENTIALS_PASSWORD: "${{ secrets.MUX_CREDENTIALS_PASSWORD }}"
+            MIX_ENV: "test"
           ],
-          run: "mix test --cover"
+          run: "mix test --cover --warnings-as-errors"
         ]
       ]
     )
