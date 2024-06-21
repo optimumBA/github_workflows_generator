@@ -2,7 +2,7 @@ defmodule GithubWorkflowsGenerator.MixProject do
   use Mix.Project
 
   @repo "https://github.com/optimumBA/github_workflows_generator"
-  @version "0.1.1"
+  @version "0.1.2"
 
   def project do
     [
