@@ -118,8 +118,8 @@ defmodule GithubWorkflows do
               "runner-image": "ubuntu-20.04"
             ],
             [
-              elixir: "1.16",
-              otp: "26.2",
+              elixir: "1.17",
+              otp: "27.0",
               "runner-image": "ubuntu-latest"
             ]
           ]
