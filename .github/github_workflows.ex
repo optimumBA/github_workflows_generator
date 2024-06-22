@@ -116,8 +116,8 @@ defmodule GithubWorkflows do
         matrix: [
           versions: [
             [
-              elixir: "1.11",
-              otp: "21.3",
+              elixir: "1.13",
+              otp: "22.3",
               "runner-image": "ubuntu-20.04"
             ],
             [
