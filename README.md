@@ -15,8 +15,6 @@ def deps do
 end
 ```
 
-The task uses [Fast YAML](https://github.com/processone/fast_yaml) to encode YAML. It depends on [LibYAML](https://pyyaml.org/wiki/LibYAML) so make sure you run the installation steps from [https://github.com/processone/fast_yaml?tab=readme-ov-file#installation](https://github.com/processone/fast_yaml?tab=readme-ov-file#installation).
-
 ## Usage
 
 ```bash
