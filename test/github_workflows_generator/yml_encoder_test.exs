@@ -40,6 +40,15 @@ defmodule GithubWorkflowsGenerator.YmlEncoderTest do
                jobs: [
                  test_schedule: [
                    "runs-on": "ubuntu-latest",
+                   services: [
+                     db: [
+                       image: "postgres:13",
+                       ports: ["5432:5432"],
+                       env: [POSTGRES_PASSWORD: "postgres"],
+                       options:
+                         "--health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5"
+                     ]
+                   ],
                    steps: [
                      [
                        name: "Not on Monday or Wednesday",
@@ -58,6 +67,16 @@ defmodule GithubWorkflowsGenerator.YmlEncoderTest do
                            "mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}",
                          "restore-keys": "\nmix-${{ matrix.versions.runner-image }}"
                        ]
+                     ],
+                     [
+                       name: "Create an environment",
+                       run:
+                         "read token_id token_secret webhook_secret < <(echo $(curl -X POST \"http://localhost/api/environments\" -H \"Content-Type: application/json; charset=utf-8\" -H \"Authorization: ApiKey ${{ secrets.API_KEY }}\" -d '{\"name\": \"pr-${{ github.event.number }}\"}' | jq -r '.token_id, .token_secret, .webhook_secret')) && echo \"TOKEN_ID=$token_id\" >> credentials && echo \"TOKEN_SECRET=$token_secret\" >> credentials && echo \"WEBHOOK_SECRET=$webhook_secret\" >> credentials && cat credentials >> $GITHUB_ENV\"\""
+                     ],
+                     [
+                       name: "Delete an environment",
+                       run:
+                         "curl -X DELETE \"http://localhost/api/environments/1\" -H \"Content-Type: application/json; charset=utf-8\" -H \"Authorization: ApiKey ${{ secrets.API_KEY }}\""
                      ]
                    ]
                  ]
@@ -72,6 +91,14 @@ defmodule GithubWorkflowsGenerator.YmlEncoderTest do
                jobs:
                  test_schedule:
                    runs-on: ubuntu-latest
+                   services:
+                     db:
+                       image: postgres:13
+                       ports:
+                         - 5432:5432
+                       env:
+                         POSTGRES_PASSWORD: postgres
+                       options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
                    steps:
                      - name: Not on Monday or Wednesday
                        if: github.event.schedule != '30 5 * * 1,3'
@@ -86,6 +113,10 @@ defmodule GithubWorkflowsGenerator.YmlEncoderTest do
                          key: mix-${{ matrix.versions.runner-image }}-${{ matrix.versions.otp }}-${{ matrix.versions.elixir }}-${{ github.sha }}
                          restore-keys: |
                            mix-${{ matrix.versions.runner-image }}
+                     - name: Create an environment
+                       run: 'read token_id token_secret webhook_secret < <(echo $(curl -X POST "http://localhost/api/environments" -H "Content-Type: application/json; charset=utf-8" -H "Authorization: ApiKey ${{ secrets.API_KEY }}" -d ''{"name": "pr-${{ github.event.number }}"}'' | jq -r ''.token_id, .token_secret, .webhook_secret'')) && echo "TOKEN_ID=$token_id" >> credentials && echo "TOKEN_SECRET=$token_secret" >> credentials && echo "WEBHOOK_SECRET=$webhook_secret" >> credentials && cat credentials >> $GITHUB_ENV""'
+                     - name: Delete an environment
+                       run: 'curl -X DELETE "http://localhost/api/environments/1" -H "Content-Type: application/json; charset=utf-8" -H "Authorization: ApiKey ${{ secrets.API_KEY }}"'
                """
     end
   end

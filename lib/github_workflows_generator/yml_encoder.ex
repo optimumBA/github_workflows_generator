@@ -26,20 +26,30 @@ defmodule GithubWorkflowsGenerator.YmlEncoder do
   defp to_yml(data, level, _indent?) do
     cond do
       !is_binary(data) ->
-        to_string(data)
+        value(data)
 
       String.contains?(data, "\n") ->
         values =
           data
           |> String.split("\n", trim: true)
-          |> Enum.map_join("\n", &(String.duplicate("  ", level) <> &1))
+          |> Enum.map_join("\n", &(String.duplicate("  ", level) <> value(&1)))
 
         "|\n#{values}"
 
       true ->
-        data
+        value(data)
     end
   end
+
+  defp value(value) when is_binary(value) do
+    if String.contains?(value, ": ") do
+      "'#{String.replace(value, "'", "''")}'"
+    else
+      value
+    end
+  end
+
+  defp value(value), do: to_string(value)
 
   defp handle_keyword_list(data, level, indent?) do
     data
