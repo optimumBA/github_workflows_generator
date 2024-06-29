@@ -11,9 +11,17 @@ defmodule GithubWorkflowsGenerator.MixProject do
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps(),
+      deps: optimum_deps() ++ app_deps(),
 
-      # Code checks
+      # Hex package
+      description: "Generate GitHub Actions workflows",
+      package: package(),
+
+      # CI
+      dialyzer: [
+        plt_add_apps: [:ex_unit, :mix],
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
+      ],
       preferred_cli_env: [
         ci: :test,
         coveralls: :test,
@@ -23,19 +31,15 @@ defmodule GithubWorkflowsGenerator.MixProject do
         dialyzer: :test
       ],
       test_coverage: [tool: ExCoveralls],
-      dialyzer: [
-        plt_add_apps: [:ex_unit, :mix],
-        plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
-      ],
 
       # Docs
       name: "GithubWorkflowsGenerator",
       source_url: @repo,
-      docs: docs(),
-
-      # Hex package
-      description: "Generate GitHub Actions workflows",
-      package: package()
+      docs: [
+        extras: ["README.md"],
+        main: "readme",
+        source_ref: "v#{@version}"
+      ]
     ]
   end
 
@@ -43,13 +47,6 @@ defmodule GithubWorkflowsGenerator.MixProject do
   def application do
     [
       extra_applications: [:logger]
-    ]
-  end
-
-  defp docs do
-    [
-      main: "Mix.Tasks.GithubWorkflows.Generate",
-      source_ref: "v#{@version}"
     ]
   end
 
@@ -62,18 +59,27 @@ defmodule GithubWorkflowsGenerator.MixProject do
   end
 
   # Run "mix help deps" to learn about dependencies.
-  defp deps do
+  defp optimum_deps do
     [
-      {:credo, "~> 1.7", only: [:test], runtime: false},
-      {:dialyxir, "~> 1.4", only: [:test], runtime: false},
-      {:ex_doc, "~> 0.34", only: [:dev], runtime: false},
-      {:excoveralls, "~> 0.18", only: [:test], runtime: false},
-      {:mix_audit, "~> 2.1", only: [:test], runtime: false}
+      {:credo, "~> 1.7", only: :test, runtime: false},
+      {:dialyxir, "~> 1.4", only: :test, runtime: false},
+      {:doctest_formatter, "~> 0.3", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.34", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.18", only: :test},
+      {:mix_audit, "~> 2.1", only: :test, runtime: false}
     ]
+  end
+
+  defp app_deps do
+    []
   end
 
   defp aliases do
     [
+      setup: [
+        "deps.get",
+        "cmd npm i -D prettier prettier-plugin-toml"
+      ],
       ci: [
         "deps.unlock --check-unused",
         "deps.audit",

@@ -196,14 +196,14 @@ defmodule GithubWorkflows do
           uses: "actions/cache@v3",
           id: "npm-cache",
           with: [
-            path: "~/.npm",
-            key: "npm-ubuntu-latest"
+            path: "node_modules",
+            key: "${{ runner.os }}-prettier"
           ]
         ],
         [
           name: "Install Prettier",
           if: "steps.npm-cache.outputs.cache-hit != 'true'",
-          run: "npm i -g prettier"
+          run: "npm i -D prettier prettier-plugin-toml"
         ],
         [
           name: "Run Prettier",

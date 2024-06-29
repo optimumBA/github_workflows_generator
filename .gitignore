@@ -25,6 +25,9 @@ github_workflows_generator-*.tar
 # Temporary files, for example, from tests.
 /tmp/
 
-# Dialyzer PLT files
-/priv/plts/*.plt
-/priv/plts/*.plt.hash
+# Optimum development/test artifacts
+/node_modules/
+/priv/plts/
+.DS_Store
+package.json
+package-lock.json
