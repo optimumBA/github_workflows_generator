@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.3
+## 0.1.3 (2024-06-30)
 
 - Dropped support for Elixir 1.11 and 1.12 (Credo requires version 1.13 at least).
 - Removed `fast_yaml` and `libyaml` from `README.md`.
