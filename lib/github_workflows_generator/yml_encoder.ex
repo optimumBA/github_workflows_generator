@@ -32,7 +32,7 @@ defmodule GithubWorkflowsGenerator.YmlEncoder do
         values =
           data
           |> String.split("\n", trim: true)
-          |> Enum.map_join("\n", &(String.duplicate("  ", level) <> value(&1)))
+          |> Enum.map_join("\n", &(String.duplicate("  ", level) <> &1))
 
         "|\n#{values}"
 

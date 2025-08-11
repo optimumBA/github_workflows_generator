@@ -29,6 +29,14 @@ defmodule GithubWorkflowsGenerator.YmlEncoderTest do
              """
     end
 
+    test "encodes a multiline string with colons correctly" do
+      assert YmlEncoder.encode(example: "this: is valid\nanother: line") == """
+             example: |
+               this: is valid
+               another: line
+             """
+    end
+
     test "encodes a complex data structure" do
       assert YmlEncoder.encode(
                on: [
