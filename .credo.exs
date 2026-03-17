@@ -193,7 +193,12 @@
           {Credo.Check.Refactor.AppendSingleItem, []},
           {Credo.Check.Refactor.DoubleBooleanNegation, []},
           {Credo.Check.Refactor.FilterReject, []},
-          {Credo.Check.Refactor.IoPuts, []},
+          {Credo.Check.Refactor.IoPuts,
+           [
+             files: %{
+               excluded: ["lib/github_workflows_generator/cli.ex"]
+             }
+           ]},
           {Credo.Check.Refactor.MapMap, []},
           {Credo.Check.Refactor.ModuleDependencies, []},
           {Credo.Check.Refactor.NegatedIsNil, []},

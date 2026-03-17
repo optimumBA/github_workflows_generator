@@ -5,7 +5,9 @@ defmodule GithubWorkflowsGenerator do
 
   @spec run(String.t(), String.t()) :: :ok | {:error, String.t()}
   def run(source_path, dir_path) do
-    with :ok <- load_module(source_path),
+    with :ok <- check_file_exists(source_path),
+         :ok <- load_module(source_path),
+         :ok <- create_dir(dir_path),
          {:ok, workflows} <- get_workflows(source_path) do
       for {filename, data} <- workflows do
         path = Path.join(dir_path, filename)
@@ -22,6 +24,21 @@ defmodule GithubWorkflowsGenerator do
     else
       {:error, reason} ->
         {:error, reason}
+    end
+  end
+
+  defp create_dir(path) do
+    case File.mkdir_p(path) do
+      :ok -> :ok
+      {:error, reason} -> {:error, "Failed to create directory #{path}: #{reason}"}
+    end
+  end
+
+  defp check_file_exists(path) do
+    if File.exists?(path) do
+      :ok
+    else
+      {:error, "File not found: #{path}"}
     end
   end
 

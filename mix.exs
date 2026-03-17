@@ -10,6 +10,7 @@ defmodule GithubWorkflowsGenerator.MixProject do
       version: @version,
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
+      escript: [main_module: GithubWorkflowsGenerator.CLI],
       aliases: aliases(),
       deps: optimum_deps() ++ app_deps(),
 

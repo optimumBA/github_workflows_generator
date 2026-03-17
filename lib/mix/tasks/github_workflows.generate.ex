@@ -153,31 +153,12 @@ defmodule Mix.Tasks.GithubWorkflows.Generate do
     dir_path = Keyword.get(opts, :dir, @default_dir_path)
     source_path = Keyword.get(opts, :source, @default_source_path)
 
-    with :ok <- check_file_exists(source_path),
-         :ok <- maybe_create_dir(dir_path),
-         :ok <- GithubWorkflowsGenerator.run(source_path, dir_path) do
-      Mix.shell().info("Done! You can check the generated workflows in #{dir_path} directory.")
-    else
+    case GithubWorkflowsGenerator.run(source_path, dir_path) do
+      :ok ->
+        Mix.shell().info("Done! You can check the generated workflows in #{dir_path} directory.")
+
       {:error, reason} ->
         Mix.raise(reason)
-    end
-  end
-
-  defp check_file_exists(path) do
-    if File.exists?(path) do
-      :ok
-    else
-      {:error, "File not found: #{path}"}
-    end
-  end
-
-  defp maybe_create_dir(path) do
-    case File.mkdir_p(path) do
-      :ok ->
-        :ok
-
-      {:error, reason} ->
-        {:error, "Failed to create directory #{path}: #{reason}"}
     end
   end
 end
